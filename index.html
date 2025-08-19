@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html>
+
+<head lang="en">
+  <meta charset="UTF-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+
+  <title>ReasonNav</title>
+
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- <base href="/"> -->
+  <link rel="stylesheet" href="./css/bulma.min.css">
+  <link rel="stylesheet" href="./css/bootstrap.min.css">
+  <link rel="stylesheet" href="./css/font-awesome.min.css">
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.8.0/codemirror.min.css">
+  <link rel="stylesheet" href="./css/academicons.min.css" />
+  <link rel="stylesheet" href="./css/stylesheet.css">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.8.0/codemirror.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.5.3/clipboard.min.js"></script>
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+  <script src="./js/jquery.min.js"></script>
+  <script src="./js/bootstrap.min.js"></script>
+  <script src="./js/app.js"></script>
+</head>
+
+<body>
+  <div class="container" id="main">
+    <div class="row">
+      <h2 class="col-md-12 text-center">
+        Human-like Navigation in a World Built for Humans
+      </h2>
+      <!-- <h3 class="col-md-12 text-center">
+        Accepted to <b>CORL '25</b>
+      </h3> -->
+      <!-- <h4 class="col-md-12 text-center">
+        CORL '25 Poster: <b>TBD </b>
+      </h4> -->
+    </div>
+
+    <div class="row">
+      <div class="col-sm-10 col-sm-offset-1 text-center">
+        <ul class="list-inline">
+          <li> <a href="https://bchandaka.github.io/"> Bhargav Chandaka<sup>1*</sup></a> </li>
+          <li> <a href="https://gxywang.github.io/"> Gloria Wang<sup>1*</sup></a> </li>
+          <li> <a href="https://blog.chenhaozhe.top/"> Haozhe Chen<sup>1</sup></a> </li>
+          <li> <a href="https://hungdche.github.io/"> Henry Che<sup>1</sup></a> </li>
+          <li> <a href="https://ajzhai.github.io/"> Albert Zhai<sup>1</sup></a> </li>
+          <li> <a href="https://shenlong.web.illinois.edu/">Shenlong Wang<sup>1</sup></a> </li>
+        </ul>
+        <ul class="list-inline">
+          <li> <sup>1</sup>University of Illinois at Urbana-Champaign </li>
+          <br />
+          <li> <sup>*</sup> Equal Contribution</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-sm-10 col-sm-offset-1 text-center">
+        <span class="link-block">
+          <a href="https://ReasonNav.github.io" class="external-link button is-normal is-rounded is-dark">
+            <span class="icon">
+              <!-- <i class="fa fa-file-pdf-o fa-2x" aria-hidden="true"></i> -->
+              <i class="ai ai-arxiv ai-2x" aria-hidden="true"></i>
+            </span>
+            <span>Paper</span>
+          </a>
+        </span>
+        <span class="link-block">
+          <a href="https://github.com/ReasonNav" class="external-link button is-normal is-rounded is-dark">
+            <span class="icon">
+              <i class="fa fa-github fa-2x" aria-hidden="true"></i>
+            </span>
+            <span>Code</span>
+          </a>
+        </span>
+      </div>
+    </div>
+
+    <!-- Abstraction, Overview figure-->
+    <div class="row">
+      <div class="col-md-10 col-md-offset-1">
+        <div class="text-center">
+          <image src="./assets/teaser.png" class="img-responsive" alt="teaser" />
+        </div><br>
+
+        <h3>
+          Abstract
+        </h3>
+        <p class="text-justify">
+          When navigating in a man-made environment they haven’t
+          visited before—like an office building—humans employ be
+          haviors such as reading signs and asking others for direc
+          tions. These behaviors help humans reach their destinations
+          efficiently by reducing the need to search through large ar
+          eas. Existing robot navigation systems lack the ability to
+          execute such behaviors and are thus highly inefficient at
+          navigating within large environments. We present Reason
+          Nav, a modular navigation system which integrates these
+          human-like navigation skills by leveraging the reasoning
+          capabilites of a vision-language model (VLM). We design
+          compact input and output abstractions based on navigation
+          landmarks, allowing the VLM to focus on language under
+          standing and reasoning. We evaluate ReasonNav on real
+          and simulated navigation tasks and show that the agent suc
+          cessfully employs higher-order reasoning to navigate effi
+          ciently in large, complex buildings.
+        </p>
+      </div>
+      <div class="col-md-10 col-md-offset-1">
+
+        <h3>
+          Supplementary Video
+        </h3>
+        <div class="text-center">
+          <video width="720" height="540" controls>
+            <source src="./assets/supp_mm_sys_compress.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+          </video>
+        </div><br>
+      </div>
+
+      <!-- <div class="row">
+        <div class="col-md-10 col-md-offset-1">
+          <h3>
+            Citation
+          </h3>
+          <div class="form-group col-md-10">
+            If you find our work useful in your research, please consider citing:
+            <textarea id="codemirror" class="form-control" readonly style="white-space: pre; overflow-x: auto;">
+@inproceedings{shen2023simonwheels,
+    author={Chandaka, Bhargav and Wang, Gloria and Chen, Haozhe and Che, Henry and Zhai, Albert and Wang, Shenlong},
+    journal={Conference on Robot Learning}, 
+    title={Human-like Navigation in a World Built for Humans}, 
+    year={2025},
+    volume={8},
+    number={12},
+    pages={8192-8199},
+    doi={10.1109/LRA.2023.3325689}
+}
+                      </textarea>
+          </div>
+        </div>
+      </div> -->
+      <div class="row">
+        <div class="col-md-10 col-md-offset-1">
+          <h3>
+            Acknowledgements
+          </h3>
+          <br>
+          The website template was borrowed from <a href="https://climatenerf.github.io/">ClimateNerf</a> and <a
+            href="https://Sim-on-Wheels.github.io/">Sim-on-Wheels</a>.
+        </div>
+      </div>
+    </div>
+  </div>
+  <script>
+    var textarea = document.getElementById('codemirror');
+    textarea.addEventListener('input', autoResize, false);
+
+    function autoResize() {
+      this.style.height = 'auto';
+      this.style.height = this.scrollHeight + 'px';
+
+      // Set the width
+      var scrollWidth = this.scrollWidth;
+      this.style.width = scrollWidth + 'px';
+    }
+
+    // Call the function initially to resize on page load
+    autoResize.call(textarea);
+  </script>
+</body>
+
+</html>
