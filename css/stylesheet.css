@@ -1,12 +1,18 @@
 a {
-  color: #036d19;
+  color: #4254bc;
   text-decoration: none;
 }
 
 a:focus,
 a:hover {
   color: #EC7357;
-  text-decoration: underline;
+  text-decoration: none;
+}
+
+.external-link.button:hover {
+  background-color: #4254bc !important;
+  color: #ffffff !important;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
 }
 
 .one {
