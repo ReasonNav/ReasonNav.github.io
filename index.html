@@ -67,14 +67,6 @@
     <div class="row">
       <div class="col-sm-8 col-sm-offset-2 text-center">
         <span class="link-block">
-          <a href="https://arxiv.org/abs/2509.21189v1" class="external-link button is-large is-rounded is-dark">
-            <span class="icon">
-              <i class="ai ai-arxiv ai-2x" aria-hidden="true"></i>
-            </span>
-            <span>ArXiv</span>
-          </a>
-        </span> &nbsp;
-        <span class="link-block">
           <a href="assets/paper.pdf" class="external-link button is-large is-rounded is-dark">
             <span class="icon">
               <svg class="svg-inline--fa fa-file-pdf fa-w-12" aria-hidden="true" focusable="false" data-prefix="fas"
@@ -86,6 +78,14 @@
               </svg><!-- <i class="fas fa-file-pdf"></i> Font Awesome fontawesome.com -->
             </span>
             <span>Paper</span>
+          </a>
+        </span> &nbsp;
+        <span class="link-block">
+          <a href="https://arxiv.org/abs/2509.21189v1" class="external-link button is-large is-rounded is-dark box-shadow">
+            <span class="icon">
+              <i class="ai ai-arxiv ai-2x" aria-hidden="true"></i>
+            </span>
+            <span>arXiv</span>
           </a>
         </span> &nbsp;
         <span class="link-block">
@@ -107,21 +107,29 @@
     <!-- Abstraction, Overview figure-->
     <div class="row">
       <div class="col-md-10 col-md-offset-1">
-        <br/>
-        <div class="text-center">
-          <image src="./assets/teaser.png" class="img-responsive" alt="teaser" />
+        <div class="video-wrapper">
+          <div class="ytp-muted-autoplay-bottom-buttons">
+            <button class="audioToggle custom-button" aria-label="Unmute">
+              <span class="custom-button-icon">🔇</span>
+              <span class="custom-button-text">Unmute</span>
+            </button>
+          </div>
+          <video class="video" controls autoplay loop muted playsinline style="display: block; max-width: 100%;">
+            <source src="./assets/video.mp4" type="video/mp4">
+          </video>
         </div>
+        <br>
         <br/>
 
         <h3>
-          Abstract
+          <b>Abstract</b>
         </h3>
         <p class="text-justify">
           When navigating in a man-made environment they haven't visited 
           before—like an office building—humans employ behaviors such
           as reading signs and asking others for directions. These 
-          behaviors help humans reach their destinations
-          efficiently by reducing the need to search through large areas. 
+          behaviors help humans reach their destinations efficiently by 
+          reducing the need to search through large areas. 
           Existing robot navigation systems lack the ability to
           execute such behaviors and are thus highly inefficient at
           navigating within large environments. We present ReasonNav, 
@@ -129,76 +137,220 @@
           human-like navigation skills by leveraging the reasoning
           capabilites of a vision-language model (VLM). We design
           compact input and output abstractions based on navigation
-          landmarks, allowing the VLM to focus on language under
-          standing and reasoning. We evaluate ReasonNav on real
-          and simulated navigation tasks and show that the agent successfully 
+          landmarks, allowing the VLM to focus on language understanding 
+          and reasoning. We evaluate ReasonNav on real and simulated
+          navigation tasks and show that the agent successfully 
           employs higher-order reasoning to navigate efficiently in large, complex buildings.
         </p>
       </div>
       <br/>
 
       <div class="col-md-10 col-md-offset-1">
-        <h3>
-          Spotlight Video
-        </h3>
-        <div class="text-center">
-          <video width="720" height="540" controls>
-            <source src="./assets/398.mp4" type="video/mp4">
-            Your browser does not support the video tag.
-          </video>
-        </div><br>
-      </div>
-      <br/>
-
-      <div class="col-md-10 col-md-offset-1">
         <br/>
 
         <h3>
-          Method
+          <b>Method</b>
         </h3>
+        <div class="key-idea-box">
+          <div class="key-idea-label">💡 Key Idea</div>
+          <p class="key-idea-text">
+            We let a VLM agent choose navigation landmarks, leveraging its reasoning
+            abilities to recognize patterns like ascending room numbers, while abstracting
+            away details regarding complex spatial data and precise numerical control.
+          </p>
+        </div>
+        <p class="text-justify">
+          <b>ReasonNav</b> is a modular system that integrates human-like navigation behaviors through a Vision-Language Model (VLM) agent. 
+          While VLMs excel at language understanding and commonsense reasoning, they struggle with complex spatial data and precise numerical outputs. 
+          To address this, we design compact input and output abstractions centered on the concept of landmarks—salient objects critical for navigation, 
+          including doors, people, directional signs, and map frontiers. 
+        </p>
+        <br/>
         <div class="text-center">
           <image src="./assets/method.png" class="img-responsive" alt="teaser" 
-          style="max-width: 80%; height: auto; width: auto\9;"/>
+          style="max-width: 80%; height: auto; width: auto;"/>
         </div>
         <br/>
         <p class="text-justify">
-          Our key idea is to have a VLM agent chose navigation landmarks.
-
-          VLMs excel at understanding language and conducting many forms of commonsense reasoning, but struggle to understand
-          complex spatial data and directly produce precise numerical output.
-
-          Thus, we carefully design our abstractions, which is centered heavily on the concept of landmarks. Specifically, the landmarks refer
-          to objects of the three categories mentioned above: doors, people, and directional signs, along with
-          frontiers of the top-down map. Our system populates a memory bank of the objects from the output
-          of a detector and attaches additional navigation-relevant information to each one as various skills
-          are performed. For doors, we attach the text of the associated room label. For people,
-          we attach a summary (generated by the VLM) of the information received from them. For direc-
-          tional signs, we attach a list of cardinal directions and the sign text reading(s) associated with each
-          direction. All of the objects are attached to a label of “Visited” or “Unvisited”.
-
-          This information is fed into the VLM, which selects one of the landmarks to navigate to. 
-          Each landmark type has a behavior primitive, which is executed once it has been selected.
-
+          Our system maintains a memory bank that stores detected landmarks along with navigation-relevant information gathered through interaction. 
+          For doors, we attach room label text; for people, we store summaries of directions they provide; 
+          for signs, we record cardinal directions and their associated text. The VLM receives this information in two forms: 
+          a JSON-formatted memory bank and a top-down map visualization with landmarks plotted by category and index. 
+          Based on the VLM's selection, ReasonNav executes predefined behavior primitives tailored to each landmark type.  
+          <br/><br/>
+          This design enables the VLM to employ higher-order reasoning—such as following ascending room numbers or interpreting directional signs—
+          without being burdened by low-level control. The modular architecture separates high-level decision-making (VLM-driven) from 
+          low-level execution (localization, mapping, and path planning), allowing ReasonNav to navigate efficiently in large, complex environments
+          through human-like exploration strategies. 
         </p>
         <br/>
       </div>
       <br/>
 
       <div class="col-md-10 col-md-offset-1">
+        <br/>
+
         <h3>
-          Supplementary Video
+          <b>Walkthrough</b>
         </h3>
-        <div class="text-center">
-          <video width="720" height="540" controls>
-            <source src="./assets/mm_sys_camera_ready_compress.mp4" type="video/mp4">
-            Your browser does not support the video tag.
+        <div class="video-wrapper">
+          <div class="ytp-muted-autoplay-bottom-buttons">
+            <button class="audioToggle custom-button" aria-label="Unmute">
+              <span class="custom-button-icon">🔇</span>
+              <span class="custom-button-text">Unmute</span>
+            </button>
+          </div>
+          <video class="video" controls autoplay loop muted playsinline style="display: block; max-width: 100%;">
+            <source src="./assets/reasonnav_walkthrough.mp4" type="video/mp4">
           </video>
-        </div><br>
+        </div>
+        <br/>
+        <p class="text-justify">
+          In this video, we show a successful demonstration of ReasonNav delivering a water bottle to a Professor's office
+          in an unknown environment. The target room number obtained algorithmically via a simple web search of the Professor's office. 
+          Step-by-step reasoning of the VLM is shown in addition to a birds-eye-view map and the Realsense camera view.
+        </p>
+        <br/>
       </div>
       <br/>
 
       <div class="col-md-10 col-md-offset-1">
-        <h3>Citation</h3>
+        <br/>
+        <h3>
+          <b>Skills</b>
+        </h3>
+        <p class="text-justify">
+          Based on the selected navigation landmark, the robot will execute one of four
+          behavior primitives: reading signs, reading room numbers, asking people for directions,
+          and exploring frontiers.
+        </p>
+        <br/>
+        
+        <div class="row">
+          <!-- First row - 2 videos -->
+          <div class="col-md-6">
+            <div class="text-center">
+              <p>
+                <b>Read Signs</b>
+              </p>
+              <image src="./assets/reasonnav_readsigns.gif" class="img-responsive" alt="read signs" 
+              style="height: auto; width: 100%;"/>
+            </div>
+          </div>
+          
+          <div class="col-md-6">
+            <div class="text-center">
+              <p>
+                <b>Check Doors</b>
+              </p>
+              <image src="./assets/reasonnav_roomnumber.gif" class="img-responsive" alt="room number" 
+              style="height: auto; width: 100%;"/>
+            </div>
+          </div>
+        </div>
+        
+        <div class="row">
+          <!-- Second row - 2 videos -->
+          <div class="col-md-6">
+            <div class="video-wrapper">
+              <div class="ytp-muted-autoplay-bottom-buttons" style="display: flex; align-items: center; gap: 16%;">
+                <button class="audioToggle custom-button" aria-label="Unmute">
+                  <span class="custom-button-icon">🔇</span>
+                  <span class="custom-button-text">Unmute</span>
+                </button>
+                <p style="margin: 0; text-align: center;">
+                  <b>Ask People</b>
+                </p>
+              </div>
+              <video class="video" controls autoplay loop muted playsinline style="display: block; max-width: 100%;">
+                <source src="./assets/reasonnav_askpeople.mp4" type="video/mp4">
+              </video>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="text-center" style="padding-top: 12px;">
+              <p>
+                <b>Explore Frontiers</b>
+              </p>
+              <image src="./assets/reasonnav_frontier.gif" class="img-responsive" alt="frontier" 
+              style="height: auto; width: 100%;"/>
+            </div>
+          </div>
+        </div>
+        <br/>
+      </div>
+      <br/>
+
+      <div class="col-md-10 col-md-offset-1">
+        <br/>
+
+        <h3>
+          <b>Examples</b>
+        </h3>
+        <div class="row">
+          <!-- First row - 2 videos -->
+          <div class="col-md-6">
+            <div class="video-wrapper">
+              <div class="ytp-muted-autoplay-bottom-buttons" style="display: flex; align-items: center; gap: 22%;">
+                <button class="audioToggle custom-button" aria-label="Unmute">
+                  <span class="custom-button-icon">🔇</span>
+                  <span class="custom-button-text">Unmute</span>
+                </button>
+                <p style="margin: 0; text-align: center;">
+                  <b>Real</b>
+                </p>
+              </div>
+              <video class="video" controls autoplay loop muted playsinline style="display: block; max-width: 100%;">
+                <source src="./assets/reasonnav_demo1.mp4" type="video/mp4">
+              </video>
+            </div>
+          </div>
+          
+          <div class="col-md-6">
+            <div class="video-wrapper">
+              <div class="ytp-muted-autoplay-bottom-buttons" style="display: flex; align-items: center; gap: 22%;">
+                <button class="audioToggle custom-button" aria-label="Unmute">
+                  <span class="custom-button-icon">🔇</span>
+                  <span class="custom-button-text">Unmute</span>
+                </button>
+                <p style="margin: 0; text-align: center;">
+                  <b>Sim</b>
+                </p>
+              </div>
+              <video class="video" controls autoplay loop muted playsinline style="display: block; max-width: 100%;">
+                <source src="./assets/reasonnav_demosim.mp4" type="video/mp4">
+              </video>
+            </div>
+          </div>
+        </div>
+
+        <br/> <br/>
+        <div class="text-center">
+          <h4>
+            <b>Multi-floor Example</b>
+          </h4>
+        </div>
+        <div class="video-wrapper">
+          <div class="ytp-muted-autoplay-bottom-buttons" style="display: flex; align-items: center; gap: 22%;">
+            <button class="audioToggle custom-button" aria-label="Unmute">
+              <span class="custom-button-icon">🔇</span>
+              <span class="custom-button-text">Unmute</span>
+            </button>
+          </div>
+          <video class="video" controls autoplay loop muted playsinline style="display: block; max-width: 100%;">
+            <source src="./assets/reasonnav_elevatordemo.mp4" type="video/mp4">
+          </video>
+        </div>
+      </div>
+      <br/>
+      </div>
+      <br/>
+
+      <div class="col-md-10 col-md-offset-1">
+        <br/>
+        <h3>
+          <b>Citation</b>
+        </h3>
         <p>If you find our work useful in your research, please consider citing:</p>
         <div style="background-color: #9e9e9e1a; border-radius: 20px; position: relative; overflow-x: auto;">
           <p style="font-family: monospace; font-size: 13px; line-height: 1.6; white-space: pre; word-wrap: break-word;">
@@ -209,15 +361,19 @@
       year={2025}
     }</p>
           </div>
+          <br/>
       </div>
       <br/>
 
       <div class="col-md-10 col-md-offset-1">
+        <br/>
         <h3>
-          Acknowledgements
+          <b>Acknowledgements</b>
         </h3>
-        The website template was borrowed from <a href="https://climatenerf.github.io/">ClimateNerf</a> and <a
+        <p>
+          The website template was borrowed from <a href="https://climatenerf.github.io/">ClimateNerf</a> and <a
           href="https://Sim-on-Wheels.github.io/">Sim-on-Wheels</a>.
+        </p>
       </div>
     </div>
   </div>
@@ -238,6 +394,31 @@
 
     // Call the function initially to resize on page load
     autoResize.call(textarea);
+  </script>
+
+  <script>
+    const videoWrappers = document.querySelectorAll('.video-wrapper');
+
+    videoWrappers.forEach(wrapper => {
+      const video = wrapper.querySelector('.video');
+      const audioBtn = wrapper.querySelector('.audioToggle');
+      const btnIcon = audioBtn.querySelector('.custom-button-icon');
+      const btnText = audioBtn.querySelector('.custom-button-text');
+
+      audioBtn.addEventListener('click', function() {
+        if (video.muted) {
+          video.muted = false;
+          btnIcon.textContent = '🔊';
+          btnText.textContent = 'Mute';
+          audioBtn.setAttribute('aria-label', 'Mute');
+        } else {
+          video.muted = true;
+          btnIcon.textContent = '🔇';
+          btnText.textContent = 'Unmute';
+          audioBtn.setAttribute('aria-label', 'Unmute');
+        }
+      });
+    });
   </script>
 </body>
 
